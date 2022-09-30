@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  eureka:
+    image: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - bank-net      
+
+  gateway:
+    image: gateway
+    ports:
+      - "9876:9876"
+    depends_on:
+      - eureka
+    networks:
+      - bank-net       
+
+  ms-customer:
+    image: ms-customer
+    depends_on:
+      - eureka
+      - postgres
+    networks:
+      - bank-net       
+      
+  postgres:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ~/docker-volumes/personal/postgres:/var/lib/postgresql
+      - ~/Desktop/tmp:/tmp
+    ports:
+      - '10001:5432'
+    networks:
+      - bank-net
+            
+networks:
+  bank-net:

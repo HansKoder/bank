@@ -1,0 +1,8 @@
+{
+  "customerId": 1,
+  "name": "Jhon Doe",
+  "address": "Av 3",
+  "phone": "882",
+  "password": "abc12345",
+  "enabled": true
+}
